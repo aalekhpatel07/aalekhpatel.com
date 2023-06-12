@@ -38,3 +38,5 @@ next-env.d.ts
 .contentlayer
 redis/data/dump.rdb
 .pnpm-store
+.vscode
+
