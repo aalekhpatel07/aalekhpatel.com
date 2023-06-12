@@ -2,7 +2,11 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { navigation } from "../page";
+
+const navigation = [
+	{ href: "/projects", name: "Projects" },
+	{ href: "/contact", name: "Contact" }
+]
 
 
 export const Navigation: React.FC = () => {

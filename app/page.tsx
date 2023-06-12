@@ -2,9 +2,8 @@ import Link from "next/link";
 import React from "react";
 import Particles from "./components/particles";
 
-export const navigation = [
+const navigation = [
 	{ name: "Projects", href: "/projects" },
-	// { name: "Blog", href: "/blog" },
 	{ name: "Contact", href: "/contact" },
 ];
 
