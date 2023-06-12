@@ -1,0 +1,27 @@
+---
+title: minimax
+description: A game-playing engine (written in Rust) that uses the Minimax Algorithm with alpha-beta pruning for arbitrary two-player Minimax games like Chess, TicTacToe, Go, Connect Four, etc.
+repository: aalekhpatel07/minimax
+url: https://docs.rs/minimax-alpha-beta
+date: 2022-08-01
+published: true
+---
+
+A Minimax game is any turn-based two player game where the objective of one player is to 
+maximize the evaluation score while the opponent tries to minimize it. 
+Examples of such games include Chess, Go, TicTacToe, Connect Four, etc.
+
+In this crate, there is a generic implementation of the minimax game-playing engine 
+that can be used for any such games. The minimax algorithm is notorious for being slow 
+so we speed it up using a pruning method called Alpha-Beta pruning.
+
+The minimax algorithm under-the-hood tries to simulate every possible "best" 
+gameplays from either sides and based on the results, recommends a move that 
+should be played to best improve the winning chances of the player to move.
+
+There is a caveat, in that, the minimax algorithm is too slow 
+(since it explores the search space almost uncleverly). 
+One optimization is that of pruning the search space by the means 
+of a clever approach in which we "rule out gameplay sequences 
+which the opponent won't definitely let us improve in." 
+This is achieved by a technique called Alpha-Beta pruning.

@@ -4,19 +4,20 @@ import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
-import { Eye } from "lucide-react";
+import { Eye, Star } from "lucide-react";
 import { getCounts } from "@/lib/redis";
 
 
 export const revalidate = 60;
 export default async function ProjectsPage() {
 	const views = await getCounts(allProjects.map(p => p.slug));
+	const featuredStars = undefined; // TODO: Integrate this with a caching Github API proxy.
 
 	const featured = allProjects.find(
-		(project) => project.slug === "planetfall",
+		(project) => project.slug === "minimax",
 	)!;
-	const top2 = allProjects.find((project) => project.slug === "highstorm")!;
-	const top3 = allProjects.find((project) => project.slug === "envshare")!;
+	const top2 = allProjects.find((project) => project.slug === "text-cleaner")!;
+	const top3 = allProjects.find((project) => project.slug === "aalekhpatel.com")!;
 	const sorted = allProjects
 		.filter((p) => p.published)
 		.filter(
@@ -40,7 +41,8 @@ export default async function ProjectsPage() {
 						Projects
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						Some of the projects are from work and some are on my own time.
+						Most of these projects have pretty permissive licenses 
+						if you'd like to fork/use them.
 					</p>
 				</div>
 				<div className="w-full h-px bg-zinc-800" />
@@ -61,12 +63,20 @@ export default async function ProjectsPage() {
 											<span>SOON</span>
 										)}
 									</div>
-									<span className="flex items-center gap-1 text-xs text-zinc-500">
-										<Eye className="w-4 h-4" />{" "}
-										{Intl.NumberFormat("en-US", { notation: "compact" }).format(
-											views[featured.slug] ?? 0,
+									<div className="flex flex-row gap-x-4">
+										{(featuredStars !== undefined) && (
+											<span className="text-zinc-500 text-xs flex items-center gap-1">
+												<Star className="w-4 h-4" />{" "}
+												{Intl.NumberFormat("en-US", { notation: "compact" }).format(featuredStars)}
+											</span>
 										)}
-									</span>
+										<span className="flex items-center gap-1 text-xs text-zinc-500">
+											<Eye className="w-4 h-4" />{" "}
+											{Intl.NumberFormat("en-US", { notation: "compact" }).format(
+												views[featured.slug] ?? 0,
+											)}
+										</span>
+									</div>
 								</div>
 
 								<h2

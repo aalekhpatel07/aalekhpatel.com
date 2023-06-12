@@ -6,22 +6,22 @@ import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
 	title: {
-		default: "chronark.com",
-		template: "%s | chronark.com",
+		default: "aalekhpatel.com",
+		template: "%s | aalekhpatel.com",
 	},
-	description: "Software engineer at upstash.com and founder of planetfall.io",
+	description: "Software developer at Canadian Centre for Child Protection",
 	openGraph: {
-		title: "chronark.com",
+		title: "aalekhpatel.com",
 		description:
-			"Software engineer at upstash.com and founder of planetfall.io",
-		url: "https://chronark.com",
-		siteName: "chronark.com",
+			"Software developer at Canadian Centre for Child Protection",
+		url: "https://aalekhpatel.com",
+		siteName: "aalekhpatel.com",
 		images: [
-			{
-				url: "https://chronark.com/og.png",
-				width: 1920,
-				height: 1080,
-			},
+			// {
+			// 	url: "https://chronark.com/og.png",
+			// 	width: 1920,
+			// 	height: 1080,
+			// },
 		],
 		locale: "en-US",
 		type: "website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "Chronark",
+		title: "@AalekhPatel4",
 		card: "summary_large_image",
 	},
 	icons: {
