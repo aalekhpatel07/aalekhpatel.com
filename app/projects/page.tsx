@@ -5,19 +5,35 @@ import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
 import { Eye, Star } from "lucide-react";
-import { getCounts } from "@/lib/redis";
+import { getCounts, getGithubStars } from "@/lib/redis";
 
 
 export const revalidate = 60;
+
+const featuredSlug = "minimax";
+const top2Slug = "text-cleaner";
+const top3Slug = "aalekhpatel.com";
+
 export default async function ProjectsPage() {
 	const views = await getCounts(allProjects.map(p => p.slug));
-	const featuredStars = undefined; // TODO: Integrate this with a caching Github API proxy.
+	const projectsWithRepositories = 
+		allProjects
+		.filter(p => p.repository !== undefined)
+		.map(p => p.repository) as string[];
+
+	const stars = await getGithubStars(projectsWithRepositories);
 
 	const featured = allProjects.find(
-		(project) => project.slug === "minimax",
+		(project) => project.slug === featuredSlug,
 	)!;
-	const top2 = allProjects.find((project) => project.slug === "text-cleaner")!;
-	const top3 = allProjects.find((project) => project.slug === "aalekhpatel.com")!;
+
+	let featuredStars: number | undefined;
+	if (featured) {
+		featuredStars = stars[featured.repository as string];
+	}
+
+	const top2 = allProjects.find((project) => project.slug === top2Slug)!;
+	const top3 = allProjects.find((project) => project.slug === top3Slug)!;
 	const sorted = allProjects
 		.filter((p) => p.published)
 		.filter(
@@ -64,13 +80,13 @@ export default async function ProjectsPage() {
 										)}
 									</div>
 									<div className="flex flex-row gap-x-4">
-										{(featuredStars !== undefined) && (
-											<span className="text-zinc-500 text-xs flex items-center gap-1">
+										{(featured && featured.repository && featured.repository in stars) && (
+											<span className="text-zinc-300 text-xs flex items-center gap-1">
 												<Star className="w-4 h-4" />{" "}
-												{Intl.NumberFormat("en-US", { notation: "compact" }).format(featuredStars)}
+												{Intl.NumberFormat("en-US", { notation: "compact" }).format(stars[featured.repository as string] as number)}
 											</span>
 										)}
-										<span className="flex items-center gap-1 text-xs text-zinc-500">
+										<span className="flex items-center gap-1 text-xs text-zinc-300">
 											<Eye className="w-4 h-4" />{" "}
 											{Intl.NumberFormat("en-US", { notation: "compact" }).format(
 												views[featured.slug] ?? 0,
@@ -89,7 +105,7 @@ export default async function ProjectsPage() {
 									{featured.description}
 								</p>
 								<div className="absolute bottom-4 md:bottom-8">
-									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
+									<p className="hidden text-zinc-200 hover:text-zinc-50 lg:block hover:underline">
 										Read more <span aria-hidden="true">&rarr;</span>
 									</p>
 								</div>
@@ -100,7 +116,7 @@ export default async function ProjectsPage() {
 					<div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
 						{[top2, top3].map((project) => (
 							<Card key={project.slug}>
-								<Article project={project} views={views[project.slug] ?? 0} />
+								<Article project={project} views={views[project.slug] ?? 0} stars={project.repository ? stars[project.repository] : undefined} />
 							</Card>
 						))}
 					</div>
@@ -113,7 +129,7 @@ export default async function ProjectsPage() {
 							.filter((_, i) => i % 3 === 0)
 							.map((project) => (
 								<Card key={project.slug}>
-									<Article project={project} views={views[project.slug] ?? 0} />
+									<Article project={project} views={views[project.slug] ?? 0} stars={project.repository ? stars[project.repository] : undefined}/>
 								</Card>
 							))}
 					</div>
@@ -122,7 +138,7 @@ export default async function ProjectsPage() {
 							.filter((_, i) => i % 3 === 1)
 							.map((project) => (
 								<Card key={project.slug}>
-									<Article project={project} views={views[project.slug] ?? 0} />
+									<Article project={project} views={views[project.slug] ?? 0} stars={project.repository ? stars[project.repository] : undefined}/>
 								</Card>
 							))}
 					</div>
@@ -131,7 +147,7 @@ export default async function ProjectsPage() {
 							.filter((_, i) => i % 3 === 2)
 							.map((project) => (
 								<Card key={project.slug}>
-									<Article project={project} views={views[project.slug] ?? 0} />
+									<Article project={project} views={views[project.slug] ?? 0} stars={project.repository ? stars[project.repository] : undefined}/>
 								</Card>
 							))}
 					</div>

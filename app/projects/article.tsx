@@ -1,6 +1,6 @@
 import type { Project } from "@/.contentlayer/generated";
 import Link from "next/link";
-import { Eye, View, Star } from "lucide-react";
+import { Eye, Star } from "lucide-react";
 
 type Props = {
 	project: Project;
@@ -26,12 +26,12 @@ export const Article: React.FC<Props> = ({ project, views, stars }) => {
 					</span>
 					<div className="flex flex-row space-x-4">
 						{(stars !== undefined) && (
-							<span className="text-zinc-500 text-xs flex items-center gap-1">
+							<span className="text-zinc-300 text-xs flex items-center gap-1">
 								<Star className="w-4 h-4" />{" "}
 								{Intl.NumberFormat("en-US", { notation: "compact" }).format(stars)}
 							</span>
 						)}
-						<span className="text-zinc-500 text-xs flex items-center gap-1">
+						<span className="text-zinc-300 text-xs flex items-center gap-1">
 							<Eye className="w-4 h-4" />{" "}
 							{Intl.NumberFormat("en-US", { notation: "compact" }).format(views)}
 						</span>

@@ -4,7 +4,7 @@ import { Mdx } from "@/app/components/mdx";
 import { Header } from "./header";
 import "./mdx.css";
 import { ReportView } from "./view";
-import { getCount } from "@/lib/redis";
+import { getCount, getGithubStarForSingleRepo } from "@/lib/redis";
 
 export const revalidate = 60;
 
@@ -31,10 +31,15 @@ export default async function PostPage({ params }: Props) {
 	}
 
 	const views = await getCount(project.slug);
+	let stars: number | undefined;
+	
+	if (project.repository) {
+		stars = await getGithubStarForSingleRepo(project.repository, 60 * 60);
+	}
 
 	return (
 		<div className="bg-zinc-50 min-h-screen">
-			<Header project={project} views={views} />
+			<Header project={project} views={views} stars={stars} />
 			<ReportView slug={project.slug} />
 
 			<article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
