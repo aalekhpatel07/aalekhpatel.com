@@ -36,6 +36,7 @@ export const Navigation: React.FC = () => {
 					<div className="flex justify-between gap-8">
 						{navigation.map(nav => (
 							<Link
+								key={nav.name}
 								href={nav.href}
 								className="duration-200 text-zinc-400 hover:text-zinc-100"
 							>
