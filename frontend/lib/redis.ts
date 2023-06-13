@@ -19,10 +19,9 @@ function createClient(): Redis {
         },
     };
 
+    let path = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
     if (process.env.REDIS_USERNAME) {
-        const path = `rediss://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
-    } else {
-        const path = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
+        path = `rediss://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
     }
     return new Redis(path, options)
 }
