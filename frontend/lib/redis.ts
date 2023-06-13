@@ -9,7 +9,6 @@ function createClient(): Redis {
     const options: RedisOptions = {
         username: process.env.REDIS_USERNAME,
         host: process.env.REDIS_HOST,
-        family: 6,
         port: Number.parseInt(process.env.REDIS_PORT as string),
         password: process.env.REDIS_PASSWORD || undefined,
         lazyConnect: true,
