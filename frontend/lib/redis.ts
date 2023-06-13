@@ -7,10 +7,6 @@ import Redis, { RedisOptions } from "ioredis";
  */
 function createClient(): Redis {
     const options: RedisOptions = {
-        username: process.env.REDIS_USERNAME,
-        host: process.env.REDIS_HOST,
-        port: Number.parseInt(process.env.REDIS_PORT as string),
-        password: process.env.REDIS_PASSWORD || undefined,
         lazyConnect: true,
         showFriendlyErrorStack: process.env.NODE_ENV !== "production",
         enableAutoPipelining: true,
@@ -23,7 +19,12 @@ function createClient(): Redis {
         },
     };
 
-    return new Redis(options)
+    if (process.env.REDIS_USERNAME) {
+        const path = `rediss://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
+    } else {
+        const path = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
+    }
+    return new Redis(path, options)
 }
 
 /**
