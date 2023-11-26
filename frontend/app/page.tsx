@@ -3,8 +3,12 @@ import React from "react";
 import Particles from "./components/particles";
 
 const navigation = [
-	{ name: "Projects", href: "/projects" },
-	{ name: "Contact", href: "/contact" },
+  { name: "Projects", href: "/projects" },
+  { name: "Contact", href: "/contact" },
+  {
+    name: "Résumé",
+    href: "https://s3.us-east-2.amazonaws.com/aalekhpatel.com/resume/resume.pdf",
+  },
 ];
 
 export default function Home() {

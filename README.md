@@ -28,6 +28,13 @@ docker-compose up -d
 
 Visit http://localhost:3000 to view your local deployment. Any changes you make to the `frontend` directory will be updated on the page automatically.
 
+## Deploying Resume
+
+Upload PDF to the bucket:
+```
+aws s3 cp <file.pdf> s3://aalekhpatel.com/resume/resume.pdf
+```
+
 ## Cloning / Forking
 
 Please remove all of my personal information (projects, images, etc.) before deploying your own version of this site.

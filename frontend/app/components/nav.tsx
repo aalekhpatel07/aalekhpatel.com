@@ -4,9 +4,13 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 const navigation = [
-	{ href: "/projects", name: "Projects" },
-	{ href: "/contact", name: "Contact" }
-]
+  { href: "/projects", name: "Projects" },
+  { href: "/contact", name: "Contact" },
+  {
+    href: "https://s3.us-east-2.amazonaws.com/aalekhpatel.com/resume/resume.pdf",
+    name: "Résumé",
+  },
+];
 
 
 export const Navigation: React.FC = () => {
