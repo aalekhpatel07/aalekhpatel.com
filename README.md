@@ -26,7 +26,7 @@ Start the docker-compose project:
 docker-compose up -d
 ```
 
-Visit http://localhost:3000 to view your local deployment. Any changes you make to the `frontend` directory will be updated on the page automatically.
+Visit http://localhost:3001 to view your local deployment. Any changes you make to the `frontend` directory will be updated on the page automatically.
 
 ## Deploying Resume
 
